@@ -7,9 +7,19 @@
 #include <assert.h>
 #include "secd.h"
 
-int     code[CODE_MAX];       /* code segment */
-value_t stack[STACK_MAX];     /* stack segment */
-dump_t  dump[DUMP_MAX];       /* dump segment */
+int     *code;       /* code segment */
+value_t *stack;      /* stack segment */
+dump_t  *dump;       /* dump segment */
+
+void init_segments(int code_size, int stack_size, int dump_size) {
+  code = (int*) malloc(code_size*sizeof(int));
+  stack = (value_t*)malloc(stack_size*sizeof(value_t));
+  dump = (dump_t*) malloc(dump_size*sizeof(dump_t));
+  assert(code != NULL);
+  assert(stack != NULL);
+  assert(dump != NULL);
+}
+
 
 /* extend an environment with a new value, i.e.
    cons a value on to a list 
@@ -49,7 +59,6 @@ value_t interp(void) {
   int sp = 0;          // stack pointer 
   int dp = 0;          // dump pointer
   env_t env = NULL;    // environment pointer
-  init_heap(HEAP_MAX);
 
   for (;;) {            // loop
     value_t opa, opb;   // temporary operands
@@ -167,10 +176,12 @@ int read_code(FILE *f) {
 
 
 int main(void) {
-  value_t v;  /* top of stack */
+  value_t top;  /* top of stack */
 
+  init_segments(CODE_MAX, STACK_MAX, DUMP_MAX);
+  init_heap(HEAP_MAX);
   read_code(stdin);
-  v = interp();
-  printf("%d\n", (int)v);
+  top = interp();
+  printf("%d\n", (int)top);
   return 0;
 }
