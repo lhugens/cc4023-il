@@ -20,6 +20,12 @@ void init_segments(int code_size, int stack_size, int dump_size) {
   assert(dump != NULL);
 }
 
+void free_segments(void) {
+  free(code);
+  free(stack);
+  free(dump);
+}
+
 
 /* extend an environment with a new value, i.e.
    cons a value on to a list 
@@ -156,8 +162,6 @@ value_t interp(void) {
     assert(pc>=0 && pc<CODE_MAX);
   }
 
-  /* clean-up */
-  free_heap();
 }
 
 
@@ -178,10 +182,17 @@ int read_code(FILE *f) {
 int main(void) {
   value_t top;  /* top of stack */
 
+  /* allocate segments and heap
+   */
   init_segments(CODE_MAX, STACK_MAX, DUMP_MAX);
   init_heap(HEAP_MAX);
   read_code(stdin);
   top = interp();
   printf("%d\n", (int)top);
+
+  /* clean-up 
+   */
+  free_segments();
+  free_heap();
   return 0;
 }
