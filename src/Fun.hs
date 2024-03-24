@@ -43,9 +43,6 @@ sndd :: Term -> Term
 sndd (Pair _ y) = y
 sndd _ = error "sndd: Not a pair"
 
--- lists
-
-
 
 
 
