@@ -29,8 +29,24 @@ data Term = Var Ident               -- variables
             | IfZero Term Term Term   -- conditional
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
-            | Pair Int Int
+            | Pair Term Term          -- pairs
             deriving Show
+
+
+
+-- pair projections
+fstt :: Term -> Term
+fstt (Pair x _) = x
+fstt _ = error "fstt: Not a pair"
+
+sndd :: Term -> Term
+sndd (Pair _ y) = y
+sndd _ = error "sndd: Not a pair"
+
+-- lists
+
+
+
 
 
 -- indentifiers are just strings
@@ -49,7 +65,6 @@ fv (e1 :- e2)   = fv e1 `union` fv e2
 fv (IfZero e1 e2 e3) = fv e1 `union` fv e2 `union` fv e3
 fv (Let x e1 e2) = fv e1 `union` delete x (fv e2)
 fv (Fix e)       = fv e
-
 
 -- end of file -------------------------------------------------
 

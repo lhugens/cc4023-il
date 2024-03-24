@@ -106,10 +106,11 @@ compile (IfZero e1 e2 e3) sym
 compile (Let x e1 e2) sym
     = compile (App (Lambda x e2) e1) sym
 
-compile (Pair x y) sym
-    = return ([LDC x] ++ [LDC y])
+compile (Pair e1 e2) sym
+    = do code1 <- compile e1 sym
+         code2 <- compile e2 sym
+         return (code1 ++ code2)
 
- 
 
 -- compile a top-level expression
 compileExpr :: Term -> CodeGen Block
