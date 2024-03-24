@@ -19,17 +19,17 @@ import           Control.Monad.State
 
 -- pseudo instructions parameterized by label type
 data Instr l = HALT            -- finished
-             | LDC Int         -- load constant
-             | LD Int          -- load variable
-             | ADD             -- addition
-             | SUB             -- subtraction
-             | MUL             -- multiplication
-             | SEL l l         -- select zero/non-zero
-             | LDF l           -- load a closure
-             | LDRF l          -- load a recursive closure
-             | AP              -- apply
-             | RTN             -- return 
-             | JOIN            -- close branch
+            | LDC Int         -- load constant
+            | LD Int          -- load variable
+            | ADD             -- addition
+            | SUB             -- subtraction
+            | MUL             -- multiplication
+            | SEL l l         -- select zero/non-zero
+            | LDF l           -- load a closure
+            | LDRF l          -- load a recursive closure
+            | AP              -- apply
+            | RTN             -- return 
+            | JOIN            -- close branch
              deriving (Show, Functor)
 
 -- symbolic labels are just strings
@@ -105,6 +105,10 @@ compile (IfZero e1 e2 e3) sym
 
 compile (Let x e1 e2) sym
     = compile (App (Lambda x e2) e1) sym
+
+compile (Pair x y) sym
+    = return ([LDC x] ++ [LDC y])
+
  
 
 -- compile a top-level expression

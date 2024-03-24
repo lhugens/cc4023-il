@@ -18,19 +18,20 @@
 module Fun where
 import Data.List (union, delete)
 
-
 -- abstract syntax for language terms
 data Term = Var Ident               -- variables
-          | Lambda Ident Term       -- abstraction
-          | App Term Term           -- application
-          | Const Int               -- constants 
-          | Term :+ Term            -- arithmetic operators
-          | Term :- Term
-          | Term :* Term
-          | IfZero Term Term Term   -- conditional
-          | Let Ident Term Term     -- local definition
-          | Fix Term                -- fixed-point operator
+            | Lambda Ident Term       -- abstraction
+            | App Term Term           -- application
+            | Const Int               -- constants 
+            | Term :+ Term            -- arithmetic operators
+            | Term :- Term
+            | Term :* Term
+            | IfZero Term Term Term   -- conditional
+            | Let Ident Term Term     -- local definition
+            | Fix Term                -- fixed-point operator
+            | Pair Int Int
             deriving Show
+
 
 -- indentifiers are just strings
 type Ident = String
