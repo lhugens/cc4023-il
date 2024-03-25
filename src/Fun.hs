@@ -45,10 +45,17 @@ sndd (Pair _ y) = y
 sndd _ = error "sndd: Not a Pair"
 
 -- list projections
--- headd :: [Term] -> Term
--- headd (List []) = Const 0
--- headd (List (x:_)) = x
--- headd _ = error "headd: Not a List"
+headd :: Term -> Term
+headd (List []) = (List [])
+headd (List (x:xs)) = x
+headd _ = error "headd: Not a List"
+
+taill :: Term -> Term
+taill (List []) = (List [])
+taill (List [x]) = x
+taill (List (_:xs)) = taill (List (xs))
+taill _ = error "taill: Not a List"
+
 
 nulll :: Term -> Int
 nulll (List []) = 0

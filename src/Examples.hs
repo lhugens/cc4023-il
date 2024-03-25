@@ -75,8 +75,15 @@ listex1 = List [Const 2, Const 3, Var "4"]
 
 listex2 = compileBytecode(List [])
 
-listex3 = runCodeGen(compileExpr(List [Const 2, Const 3])
+listex3 = runCodeGen(compileExpr(List [Const 2, Const 3]))
+    
+listex4 = runCodeGen(compileExpr(headd(List [Const 2, Const 3])))
 
+listex5 = runCodeGen(compileExpr(taill(List [Const 2, Const 3])))
+
+listex6 = nulll(List [])
+
+listex7 = nulll(List [Const 2, Const 3])
 
 
 
