@@ -7,11 +7,10 @@
 -}
 module Examples where
 import Fun
+import SECD2
 
 -- simple computations
 ex1 = (Const 42 :+ Const 23) :* Const 5
-
-ex1'= Const 5 :* (Const 42 :+ Const 23) 
 
 -- the identity function
 ex2 = Lambda "x" (Var "x")
@@ -60,5 +59,26 @@ ex8 = Fix
 bug1 = Const 42 :+ Lambda "x" (Var "x")
 
 bug2 = App (Const 42) (Const 1)
+
+----------------------------------
+-- assignment examples
+
+pairex1 = compileBytecode(fstt(Pair (Const 2) (Const 3)))
+
+pairex2 = compileBytecode(sndd(Pair (Const 2) (Const 3)))
+
+pairex3 = runCodeGen(compileExpr(Pair (Const 2) (Const 3)))
+
+
+
+
+
+
+
+
+
+
+
+
 
 

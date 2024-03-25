@@ -30,6 +30,7 @@ data Term = Var Ident               -- variables
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
             | Pair Term Term          -- pairs
+            | List [Int]
             deriving Show
 
 
