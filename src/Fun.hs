@@ -30,7 +30,7 @@ data Term = Var Ident               -- variables
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
             | Pair Term Term          -- pairs
-            | List [Int]
+            | List [Term]             -- lists
             deriving Show
 
 
@@ -38,12 +38,22 @@ data Term = Var Ident               -- variables
 -- pair projections
 fstt :: Term -> Term
 fstt (Pair x _) = x
-fstt _ = error "fstt: Not a pair"
+fstt _ = error "fstt: Not a Pair"
 
 sndd :: Term -> Term
 sndd (Pair _ y) = y
-sndd _ = error "sndd: Not a pair"
+sndd _ = error "sndd: Not a Pair"
 
+-- list projections
+-- headd :: [Term] -> Term
+-- headd (List []) = Const 0
+-- headd (List (x:_)) = x
+-- headd _ = error "headd: Not a List"
+
+nulll :: Term -> Int
+nulll (List []) = 0
+nulll (List _) = 1
+nulll _ = error "nulll: Not a List"
 
 
 

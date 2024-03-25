@@ -63,11 +63,21 @@ bug2 = App (Const 42) (Const 1)
 ----------------------------------
 -- assignment examples
 
+-- pairs
 pairex1 = compileBytecode(fstt(Pair (Const 2) (Const 3)))
 
 pairex2 = compileBytecode(sndd(Pair (Const 2) (Const 3)))
 
 pairex3 = runCodeGen(compileExpr(Pair (Const 2) (Const 3)))
+
+-- lists
+listex1 = List [Const 2, Const 3, Var "4"]
+
+listex2 = compileBytecode(List [])
+
+listex3 = runCodeGen(compileExpr(List [Const 2, Const 3])
+
+
 
 
 
