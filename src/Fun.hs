@@ -33,8 +33,6 @@ data Term = Var Ident               -- variables
             | List [Term]             -- lists
             deriving Show
 
-
-
 -- pair projections
 fstt :: Term -> Term
 fstt (Pair x _) = x
@@ -53,9 +51,8 @@ headd _ = error "headd: Not a List"
 taill :: Term -> Term
 taill (List []) = (List [])
 taill (List [x]) = x
-taill (List (_:xs)) = taill (List (xs))
+taill (List (x:xs)) = (List xs)
 taill _ = error "taill: Not a List"
-
 
 nulll :: Term -> Int
 nulll (List []) = 0
