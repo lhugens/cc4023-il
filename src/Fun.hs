@@ -50,7 +50,6 @@ headd _ = error "headd: Not a List"
 
 taill :: Term -> Term
 taill (List []) = (List [])
-taill (List [x]) = x
 taill (List (x:xs)) = (List xs)
 taill _ = error "taill: Not a List"
 

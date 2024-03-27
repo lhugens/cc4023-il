@@ -61,7 +61,19 @@ bug1 = Const 42 :+ Lambda "x" (Var "x")
 bug2 = App (Const 42) (Const 1)
 
 ----------------------------------
--- assignment examples
+-- assignment examples --
+----------------------------------
+
+-- \x. \y. \z. z x y
+expair = Lambda "x" (App (Lambda "y" (App (Lambda "z" (Var "z")) (Var "x"))) (Var "y"))
+
+-- \p. p (\x. \y. x)
+exfst = App (Var "p") (Lambda "p" (Lambda "x" (Lambda "y" (Var ("x")))))
+
+-- \p. p (\x. \y. y)
+exsnd = App (Var "p") (Lambda "p" (Lambda "x" (Lambda "y" (Var ("y")))))
+
+------------------------------------
 
 -- pairs
 pairex1 = compileBytecode(fstt(Pair (Const 2) (Const 3)))
