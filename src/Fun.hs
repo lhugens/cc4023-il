@@ -30,16 +30,18 @@ data Term = Var Ident               -- variables
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
             | Pair Int Int            -- pairs
-            | List [Int]
+            | List [Int]              -- lists
             deriving Show
 
 -- projections for pairs
 
 fstP :: Term -> Term
 fstP (Pair x _) = (Const x)
+fstP _ = error "fstP: Not a pair"
 
 sndP :: Term -> Term
 sndP (Pair _ y) = (Const y)
+sndP _ = error "sndP: Not a pair"
 
 
 -- projections for lists
