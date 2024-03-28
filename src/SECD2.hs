@@ -106,6 +106,11 @@ compile (IfZero e1 e2 e3) sym
 compile (Let x e1 e2) sym
     = compile (App (Lambda x e2) e1) sym
 
+compile (Pair x y) sym
+    = do code1 <- compile (Const x) sym
+         code2 <- compile (Const y) sym
+         return (code1 ++ code2)
+
 
 
 

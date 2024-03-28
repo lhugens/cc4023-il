@@ -75,3 +75,7 @@ exsnd = App (Var "p") (Lambda "p" (Lambda "x" (Lambda "y" (Var ("y")))))
 
 ------------------------------------
 
+expair1 = Pair 2 3
+
+expair2 = runCodeGen(compileExpr(Pair 2 3))
+
