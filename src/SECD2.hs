@@ -111,9 +111,16 @@ compile (Pair x y) sym
          code2 <- compile (Const y) sym
          return (code1 ++ code2)
 
+compile (List []) sym 
+    = return []
 
+compile (List [x]) sym
+    = compile (Const x) sym
 
-
+compile (List (x:xs)) sym 
+    = do code1 <- compile (List [x]) sym
+         code2 <- compile (List xs) sym
+         return (code1 ++ code2)
 
 
 -- compile a top-level expression

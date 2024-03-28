@@ -75,7 +75,12 @@ exsnd = App (Var "p") (Lambda "p" (Lambda "x" (Lambda "y" (Var ("y")))))
 
 ------------------------------------
 
+-- pair examples
 expair1 = Pair 2 3
 
 expair2 = runCodeGen(compileExpr(Pair 2 3))
 
+-- list examples
+exlist1 = List [2,3,4]
+
+exlist2 = runCodeGen(compileExpr(List [2,3,4]))
