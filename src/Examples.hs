@@ -80,7 +80,15 @@ expair1 = Pair 2 3
 
 expair2 = runCodeGen(compileExpr(Pair 2 3))
 
+expair3 = fstP(Pair 2 3)
+
+expair4 = sndP(Pair 2 3)
+
 -- list examples
 exlist1 = List [2,3,4]
 
 exlist2 = runCodeGen(compileExpr(List [2,3,4]))
+
+exlist3 = nullL(List [])
+
+exlist4 = nullL(List [2, 3, 4])

@@ -33,6 +33,32 @@ data Term = Var Ident               -- variables
             | List [Int]
             deriving Show
 
+-- projections for pairs
+
+fstP :: Term -> Term
+fstP (Pair x _) = (Const x)
+
+sndP :: Term -> Term
+sndP (Pair _ y) = (Const y)
+
+
+-- projections for lists
+
+headL :: Term -> Term
+headL (List []) = (List [])
+headL (List (x:xs)) = (Const x)
+headL _ = error "headL: Not a list"
+
+tailL :: Term -> Term
+tailL (List []) = (List [])
+tailL (List (x:xs)) = (List xs)
+tailL _ = error "tailL: Not a list"
+
+nullL :: Term -> Int
+nullL (List []) = 0
+nullL (List (x:xs)) = 1
+nullL _ = error "nullL: Not a list"
+
 
 -- indentifiers are just strings
 type Ident = String
