@@ -106,7 +106,6 @@ compile (IfZero e1 e2 e3) sym
 compile (Let x e1 e2) sym
     = compile (App (Lambda x e2) e1) sym
 
-
 -- compile a top-level expression
 compileExpr :: Term -> CodeGen Block
 compileExpr e = do

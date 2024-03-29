@@ -18,6 +18,7 @@
 module Fun where
 import Data.List (union, delete)
 
+
 -- abstract syntax for language terms
 data Term = Var Ident               -- variables
             | Lambda Ident Term       -- abstraction
@@ -29,7 +30,18 @@ data Term = Var Ident               -- variables
             | IfZero Term Term Term   -- conditional
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
+            | Pair            
+            | Fst Pair           
+            | Snd Pair          
+            | Nil 
+            | Cons
+            | Null List
+            | Head List
+            | Taill List
             deriving Show
+
+type Pair = (Int,Int)
+type List = [Int]
 
 
 -- indentifiers are just strings
