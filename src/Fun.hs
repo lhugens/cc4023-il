@@ -29,35 +29,7 @@ data Term = Var Ident               -- variables
             | IfZero Term Term Term   -- conditional
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
-            | Pair Term Term          -- pairs
-            | List [Term]             -- lists
             deriving Show
-
--- pair projections
-fstt :: Term -> Term
-fstt (Pair x _) = x
-fstt _ = error "fstt: Not a Pair"
-
-sndd :: Term -> Term
-sndd (Pair _ y) = y
-sndd _ = error "sndd: Not a Pair"
-
--- list projections
-headd :: Term -> Term
-headd (List []) = (List [])
-headd (List (x:xs)) = x
-headd _ = error "headd: Not a List"
-
-taill :: Term -> Term
-taill (List []) = (List [])
-taill (List (x:xs)) = (List xs)
-taill _ = error "taill: Not a List"
-
-nulll :: Term -> Int
-nulll (List []) = 0
-nulll (List _) = 1
-nulll _ = error "nulll: Not a List"
-
 
 
 -- indentifiers are just strings

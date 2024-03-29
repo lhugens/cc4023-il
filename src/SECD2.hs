@@ -106,28 +106,6 @@ compile (IfZero e1 e2 e3) sym
 compile (Let x e1 e2) sym
     = compile (App (Lambda x e2) e1) sym
 
---- compiling pairs
-compile (Pair e1 e2) sym
-    = do code1 <- compile e1 sym
-         code2 <- compile e2 sym
-         return (code1 ++ code2)
-
---- compiling lists
-compile (List []) sym
-    = return [HALT]
-
-compile (List [e1]) sym
-    = do code <- compile e1 sym
-         return code
-
-compile (List (x:xs)) sym
-    = do code1 <- compile x sym
-         code2 <- compile (List xs) sym
-         return (code1 ++ code2)
-
-
-
-
 
 -- compile a top-level expression
 compileExpr :: Term -> CodeGen Block
