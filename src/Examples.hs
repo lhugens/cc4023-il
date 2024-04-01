@@ -64,16 +64,17 @@ bug2 = App (Const 42) (Const 1)
 -- assignment examples --
 ----------------------------------
 
--- \x. \y. \z. z x y
-expair = Lambda "x" (App (Lambda "y" (App (Lambda "z" (Var "z")) (Var "x"))) (Var "y"))
 
--- \p. p (\x. \y. x)
-exfst = App (Var "p") (Lambda "p" (Lambda "x" (Lambda "y" (Var ("x")))))
+funlength = Fix (Lambda "f" (Lambda "ls" (IfZero (Null (Var "ls")) (Const 0) ((Const 1) :+ (App (Var "f") (Tail (Var "ls")))))))
 
--- \p. p (\x. \y. y)
-exsnd = App (Var "p") (Lambda "p" (Lambda "x" (Lambda "y" (Var ("y")))))
+fl1 = Cons (Const 1) Nil
 
-------------------------------------
+fl2 = Cons (Const 76) (Cons (Const 34) Nil)
 
+fl3 = Cons funlength Nil
+
+funappend = Fix (Lambda "f" (Lambda "ls1" (Lambda "ls2" (IfZero (Null (Var "ls1"))
+    (Var "ls2") 
+    (Cons (Head (Var "ls1")) (App (App (Var "f") (Tail (Var "ls1" ))) (Var "ls2")))))))
 
 

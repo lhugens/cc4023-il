@@ -106,6 +106,30 @@ compile (IfZero e1 e2 e3) sym
 compile (Let x e1 e2) sym
     = compile (App (Lambda x e2) e1) sym
 
+compile (Pair e1 e2) sym
+    = compile (Lambda "_pair" (App (App (Var "_pair") e1) e2)) sym
+
+compile (Fst e1) sym
+    = compile (App e1 (Lambda "_fst" (Lambda "_snd" (Var "_fst")))) sym
+
+compile (Snd e1) sym
+    = compile (App e1 (Lambda "_fst" (Lambda "_snd" (Var "_snd")))) sym
+
+compile (Nil) sym
+    = compile (Pair (Const 0) (Const 0)) sym
+
+compile (Cons e1 e2) sym
+    = compile (Pair (Const 1) (Pair e1 e2)) sym
+
+compile (Head ls) sym
+    = compile (Fst (Snd (ls))) sym
+
+compile (Tail ls) sym
+    = compile (Snd (Snd (ls))) sym
+
+compile (Null ls) sym
+    = compile (Fst ls) sym
+
 -- compile a top-level expression
 compileExpr :: Term -> CodeGen Block
 compileExpr e = do

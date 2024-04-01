@@ -15,6 +15,8 @@
 
   Pedro Vasconcelos, 2008--2022
 -}
+
+
 module Fun where
 import Data.List (union, delete)
 
@@ -30,18 +32,15 @@ data Term = Var Ident               -- variables
             | IfZero Term Term Term   -- conditional
             | Let Ident Term Term     -- local definition
             | Fix Term                -- fixed-point operator
-            | Pair            
-            | Fst Pair           
-            | Snd Pair          
+            | Pair Term Term
+            | Fst Term           
+            | Snd Term       
             | Nil 
-            | Cons
-            | Null List
-            | Head List
-            | Taill List
+            | Cons Term Term
+            | Null Term
+            | Head Term
+            | Tail Term
             deriving Show
-
-type Pair = (Int,Int)
-type List = [Int]
 
 
 -- indentifiers are just strings
@@ -60,6 +59,14 @@ fv (e1 :- e2)   = fv e1 `union` fv e2
 fv (IfZero e1 e2 e3) = fv e1 `union` fv e2 `union` fv e3
 fv (Let x e1 e2) = fv e1 `union` delete x (fv e2)
 fv (Fix e)       = fv e
+fv (Pair e1 e2)  = fv e1 `union` fv e2
+fv (Fst e)       = fv e
+fv (Snd e)       = fv e
+fv (Nil)         = []
+fv (Cons e1 e2)  = fv e1 `union` fv e2
+fv (Null e)      = fv e
+fv (Head e)      = fv e
+fv (Tail e)      = fv e
 
 -- end of file -------------------------------------------------
 
