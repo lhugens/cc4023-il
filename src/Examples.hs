@@ -64,17 +64,35 @@ bug2 = App (Const 42) (Const 1)
 -- assignment examples --
 ----------------------------------
 
-
-funlength = Fix (Lambda "f" (Lambda "ls" (IfZero (Null (Var "ls")) (Const 0) ((Const 1) :+ (App (Var "f") (Tail (Var "ls")))))))
-
 fl1 = Cons (Const 1) Nil
 
 fl2 = Cons (Const 76) (Cons (Const 34) Nil)
+
+funlength = Fix (Lambda "f" (Lambda "ls" (IfZero (Null (Var "ls")) (Const 0) ((Const 1) :+ (App (Var "f") (Tail (Var "ls")))))))
 
 fl3 = Cons funlength Nil
 
 funappend = Fix (Lambda "f" (Lambda "ls1" (Lambda "ls2" (IfZero (Null (Var "ls1"))
     (Var "ls2") 
     (Cons (Head (Var "ls1")) (App (App (Var "f") (Tail (Var "ls1" ))) (Var "ls2")))))))
+
+fl4 = App funlength (App funappend (Cons (Cons (Const 1) fl1) fl2))
+
+-- define the list [24, 32, 56], and get SECD to print the first, second, and third element to the console
+
+exel1 = compileToFile "temp1" (Head(Cons (Const 24) (Cons (Const 32) (Cons (Const 56) Nil))))
+
+exel2 = compileToFile "temp2" (Head(Tail(Cons (Const 24) (Cons (Const 32) (Cons (Const 56) Nil)))))
+
+exel3 = compileToFile "temp3" (Head(Tail(Tail(Cons (Const 24) (Cons (Const 32) (Cons (Const 56) Nil))))))
+
+
+
+
+
+
+
+
+
 
 
